@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.11.25) (preloaded format=pdflatex 2022.12.7)  29 MAR 2023 20:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.11.25) (preloaded format=pdflatex 2022.12.7)  30 MAR 2023 00:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -867,9 +867,6 @@ Package translations Info: No language package found. I am going to use `englis
 h' as default language. on input line 75.
  (1.aux
 
-LaTeX Warning: Label `fig:pie' multiply defined.
-
-
 LaTeX Warning: Label `fig:bar' multiply defined.
 
 )
@@ -951,7 +948,7 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 168
 (C:\Users\kahra\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<images/class.pdf, id=158, 159.19887pt x 269.92372pt>
+<images/class.pdf, id=50, 159.19887pt x 269.92372pt>
 File: images/class.pdf Graphic file (type pdf)
 <use images/class.pdf>
 Package pdftex.def Info: images/class.pdf  used on input line 182.
@@ -964,7 +961,7 @@ Package pdftex.def Info: images/class.pdf  used on input line 182.
 
 pdfTeX warning: pdflatex.exe (file ./images/TraP.pdf): PDF inclusion: found PDF
  version <1.7>, but at most version <1.5> allowed
-<images/TraP.pdf, id=185, 567.07857pt x 139.4811pt>
+<images/TraP.pdf, id=77, 567.07857pt x 139.4811pt>
 File: images/TraP.pdf Graphic file (type pdf)
 <use images/TraP.pdf>
 Package pdftex.def Info: images/TraP.pdf  used on input line 208.
@@ -973,90 +970,61 @@ Package pdftex.def Info: images/TraP.pdf  used on input line 208.
 
 pdfTeX warning: pdflatex.exe (file ./images/agregation.pdf): PDF inclusion: fou
 nd PDF version <1.7>, but at most version <1.5> allowed
-<images/agregation.pdf, id=604, 337.26pt x 113.4639pt>
+<images/agregation.pdf, id=509, 337.26pt x 113.4639pt>
 File: images/agregation.pdf Graphic file (type pdf)
 <use images/agregation.pdf>
-Package pdftex.def Info: images/agregation.pdf  used on input line 220.
+Package pdftex.def Info: images/agregation.pdf  used on input line 252.
 (pdftex.def)             Requested size: 252.0pt x 84.78087pt.
 
-LaTeX Warning: Citation `Kostas2022IoTDevID' on page 3 undefined on input line 
-235.
+Underfull \hbox (badness 7308) in paragraph at lines 261--261
+\T1/ptm/m/n/8 BOOTP_options, DNS_qr, DNS_rd, DNS_qdcount, dport_class, pay-
+ []
 
 [3 <./images/agregation.pdf>]
-<images/cm2.pdf, id=638, 1100.03992pt x 970.73854pt>
+Underfull \hbox (badness 6284) in paragraph at lines 263--264
+[]\T1/ptm/m/n/10 Labelling was per-formed us-ing the list of de-vice
+ []
+
+<images/cm2.pdf, id=538, 1100.03992pt x 970.73854pt>
 File: images/cm2.pdf Graphic file (type pdf)
 <use images/cm2.pdf>
-Package pdftex.def Info: images/cm2.pdf  used on input line 284.
+Package pdftex.def Info: images/cm2.pdf  used on input line 282.
 (pdftex.def)             Requested size: 241.84842pt x 213.41501pt.
-<images/cm4.pdf, id=639, 904.86206pt x 712.68633pt>
+<images/cm4.pdf, id=539, 904.86206pt x 712.68633pt>
 File: images/cm4.pdf Graphic file (type pdf)
 <use images/cm4.pdf>
-Package pdftex.def Info: images/cm4.pdf  used on input line 285.
+Package pdftex.def Info: images/cm4.pdf  used on input line 283.
 (pdftex.def)             Requested size: 241.84842pt x 190.48131pt.
-<images/pie.pdf, id=641, 382.57701pt x 284.15063pt>
+<images/pie.pdf, id=541, 382.57701pt x 284.15063pt>
 File: images/pie.pdf Graphic file (type pdf)
 <use images/pie.pdf>
-Package pdftex.def Info: images/pie.pdf  used on input line 297.
+Package pdftex.def Info: images/pie.pdf  used on input line 295.
 (pdftex.def)             Requested size: 153.72015pt x 114.1742pt.
- [4 <./images/cm2.pdf> <./images/cm4.pdf> <./images/pie.pdf>]
-<images/bar.pdf, id=728, 1080.86942pt x 680.9327pt>
+[4 <./images/cm2.pdf> <./images/cm4.pdf>]
+<images/bar.pdf, id=607, 1080.86942pt x 680.9327pt>
 File: images/bar.pdf Graphic file (type pdf)
 <use images/bar.pdf>
-Package pdftex.def Info: images/bar.pdf  used on input line 320.
+Package pdftex.def Info: images/bar.pdf  used on input line 318.
 (pdftex.def)             Requested size: 428.39923pt x 269.885pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/data.pdf): PDF inclusion: found PDF
  version <1.7>, but at most version <1.5> allowed
-<images/data.pdf, id=729, 338.22359pt x 97.3236pt>
+<images/data.pdf, id=608, 338.22359pt x 97.3236pt>
 File: images/data.pdf Graphic file (type pdf)
 <use images/data.pdf>
-Package pdftex.def Info: images/data.pdf  used on input line 327.
+Package pdftex.def Info: images/data.pdf  used on input line 325.
 (pdftex.def)             Requested size: 252.0pt x 72.51283pt.
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
-57.
+55.
 (C:\Users\kahra\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-Overfull \hbox (5.80728pt too wide) in paragraph at lines 381--423
+Overfull \hbox (5.80728pt too wide) in paragraph at lines 379--421
  [][][] 
  []
 
-[5
-
-] [6
-
- <./images/bar.pdf> <./images/data.pdf>]
-
-LaTeX Warning: Citation `al2015internet' on page 7 undefined on input line 437.
-
-
-<images/tablo3.pdf, id=832, 43.1211pt x 31.0761pt>
-File: images/tablo3.pdf Graphic file (type pdf)
-<use images/tablo3.pdf>
-Package pdftex.def Info: images/tablo3.pdf  used on input line 474.
-(pdftex.def)             Requested size: 252.0pt x 181.65729pt.
-[7
-
-
- <./images/tablo3.pdf>] [8]
-File: images/pie.pdf Graphic file (type pdf)
-<use images/pie.pdf>
-Package pdftex.def Info: images/pie.pdf  used on input line 533.
-(pdftex.def)             Requested size: 252.0pt x 187.17145pt.
-<images/bytes.pdf, id=876, 507.6397pt x 387.19873pt>
-File: images/bytes.pdf Graphic file (type pdf)
-<use images/bytes.pdf>
-Package pdftex.def Info: images/bytes.pdf  used on input line 557.
-(pdftex.def)             Requested size: 252.0pt x 192.21637pt.
- [9 <./images/bytes.pdf>]
-<images/ModelInterpretability.pdf, id=895, 431.69278pt x 133.45859pt>
-File: images/ModelInterpretability.pdf Graphic file (type pdf)
-<use images/ModelInterpretability.pdf>
-Package pdftex.def Info: images/ModelInterpretability.pdf  used on input line 5
-80.
-(pdftex.def)             Requested size: 252.0pt x 77.90698pt.
- [10 <./images/ModelInterpretability.pdf>] (1.bbl
+(1.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 25--27
 []\T1/ptm/m/n/8 J. Fruh-linger, ``What is iot?'' 2023, ac-cessed: 2023-03-
  []
@@ -1067,45 +1035,45 @@ Underfull \hbox (badness 10000) in paragraph at lines 25--27
  / 3207535 /
  []
 
-) [11] [12
+[5 <./images/pie.pdf>]) [6 <./images/bar.pdf> <./images/data.pdf>] [7
 
-] [13] [14]
-Overfull \hbox (26.42192pt too wide) in paragraph at lines 764--824
+] [8]
+[9]
+Overfull \hbox (26.42192pt too wide) in paragraph at lines 582--642
  [][][] 
  []
 
-[15
+[10
 
 ] (1.aux)
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: There were multiply-defined labels.
 
-Package rerunfilecheck Info: File `1.out' has not changed.
-(rerunfilecheck)             Checksum: 98FED47FFC2B4C50CA99FB91361FA236;10559.
+
+Package rerunfilecheck Warning: File `1.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `1.out':
+(rerunfilecheck)             Before: B432CFB37E60DE0982F981C9D0B71796;1185
+(rerunfilecheck)             After:  DFF0EE737E9DFF98E76BB08EAFC92A35;1342.
  ) 
 Here is how much of TeX's memory you used:
- 26590 strings out of 475281
- 514621 string characters out of 2774065
- 1340116 words of memory out of 3000000
- 47570 multiletter control sequences out of 15000+600000
+ 26484 strings out of 475281
+ 512701 string characters out of 2774065
+ 1340359 words of memory out of 3000000
+ 47508 multiletter control sequences out of 15000+600000
  582624 words of font info for 146 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 91i,13n,117p,2253b,906s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 91i,13n,117p,2253b,1027s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/kahra/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:
-/Users/kahra/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss1
-0.pfb><C:/Users/kahra/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
-/cm/cmsy7.pfb><C:/Users/kahra/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmtt10.pfb><C:/Users/kahra/AppData/Local/Programs/MiKTeX/fonts/type
-1/urw/times/utmb8a.pfb><C:/Users/kahra/AppData/Local/Programs/MiKTeX/fonts/type
-1/urw/times/utmbi8a.pfb><C:/Users/kahra/AppData/Local/Programs/MiKTeX/fonts/typ
-e1/urw/times/utmr8a.pfb><C:/Users/kahra/AppData/Local/Programs/MiKTeX/fonts/typ
-e1/urw/times/utmri8a.pfb>
-Output written on 1.pdf (15 pages, 802278 bytes).
+/Users/kahra/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:
+/Users/kahra/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C
+:/Users/kahra/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C
+:/Users/kahra/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on 1.pdf (10 pages, 627407 bytes).
 PDF statistics:
- 993 PDF objects out of 1000 (max. 8388607)
- 93 named destinations out of 1000 (max. 500000)
- 344 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 784 PDF objects out of 1000 (max. 8388607)
+ 52 named destinations out of 1000 (max. 500000)
+ 113 words of extra memory for PDF output out of 10000 (max. 10000000)
 

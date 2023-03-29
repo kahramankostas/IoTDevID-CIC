@@ -180,7 +180,7 @@ In this section, we will review some studies in the literature on device identif
 \begin{figure}[ht]
 	%	\vspace*{-3mm}
 	\centerline{\includegraphics[width=0.61\columnwidth]{images/class.pdf}}
-	\caption{The change of device labels of the CIC dataset according to 3 identification methods. In the unique method, each device is considered unique and labelled with this name, regardless of other devices. In the Type method, devices with the same brand and model are considered as a single device and share the same label. In the Type method, three devices that were originally labelled separately as SmartThings Bulb 1-2-3 are collected under the SmartThings Bulb label. In the Class method, devices with the same function are grouped under a single tag. For example, in the class column, 1,2,3 represent the categories Smart Lamp/Bulb, speaker, and smart plug respectively..}
+	\caption{The change of device labels of the CIC dataset according to three identification methods. In the unique method, each device is considered unique and labelled with this name, regardless of other devices. In the Type method, devices with the same brand and model are considered as a single device and share the same label. In the Type method, three devices that were originally labelled separately as SmartThings Bulb 1-2-3 are collected under the SmartThings Bulb label. In the Class method, devices with the same function are grouped under a single tag. For example, in the class column, 1,2,3 represent the categories Smart Lamp/Bulb, speaker, and smart plug respectively..}
 	\label{fig:3aproach}
 \end{figure}
 
@@ -215,27 +215,18 @@ To briefly summarise the "IoTDevID" work, we used the Aalto dataset for method d
 
 
 
-\begin{figure}[ht]
-	%	\vspace*{-3mm}
-	\centerline{\includegraphics[width=1\columnwidth]{images/agregation.pdf}}
-	\caption{The number of packets produced by the devices in the Aalto dataset.}
-	\label{fig:pie}
-\end{figure}
 
 
 
 
 
 
-\section{MATERIALS AND METHODS}
+
+\section{Materials and Methods}
+\subsection{Dataset}
 
 
-dataset
-
-One of the biggest problems in device identification studies is the lack of adequate datasets. The simulations used in many networking studies cannot be used in device identification studies, and the fact that the dataset can only be created with real device data is the most prominent of the difficulties. To create a proper device identification dataset, many types of IoT devices are needed, and the supply of these devices is a serious financial burden. In addition, normal data collection requires a long time, labour, and specialised space. In our baseline study, IoTDevID~\cite{Kostas2022IoTDevID}, we used two datasets, the Altoo  University~\cite{miettinen2017iot,aalto2017dataset} and UNSW datasets~\cite{sivanathan2018classifying}, which were produced for device identification studies. In this study, we used the Altoo dataset to develop our method and the second dataset to validate our results. In 2022, a new device identification dataset, CIC-IoT-22~\cite{CIC}, was made public.This dataset is very interesting as it contains many types and numbers of devices, contains the state of the devices under different conditions, and contains attack data in addition to benign data.  This dataset is very useful to demonstrate the usefulness, robustness, and generalisability of our method. 
-
-
-
+One of the biggest problems in device identification studies is the lack of adequate datasets. The simulations used in many networking studies cannot be used in device identification studies, and the fact that the dataset can only be created with real device data is the most prominent of the difficulties. To create a proper device identification dataset, many types of IoT devices are needed, and the supply of these devices is a serious financial burden. In addition, normal data collection requires a long time, labour, and specialised space. Therefore, like many researchers, we have chosen to use publicly available datasets. In our baseline study, IoTDevID~\cite{kostas2022IoTDevID}, we used two datasets, the Aalto  University~\cite{miettinen2017iot,aalto2017dataset} and UNSW datasets~\cite{sivanathan2018classifying}, which were produced for device identification studies. In this study, we used the Aalto dataset to develop our method and the second dataset to validate our results. In 2022, a new device identification dataset, CIC-IoT-22~\cite{CIC}, was made public.This dataset is very interesting as it contains many types and numbers of devices, contains the state of the devices under different conditions, and contains attack data in addition to benign data.  This dataset is very useful to demonstrate the usefulness, robustness, and generalisability of our method. 
 
 In this dataset, data was collected in 6 different situations. These situations can be summarised as follows. 
 In the \textbf{Power} state, each device is isolated from other devices and rebooted and the network packets related to this device are collected.
@@ -246,29 +237,36 @@ the \textbf{Idle} state consists of recording every 8-hour period for 30 days in
 The \textbf{active} state contains the data of the devices being used during the day for 30 days. This data is generated by people entering the lab and using the devices.
 
 Some important points about the dataset:
-In this study, the most important sections for us are IDLE and Active. In these two sections, enough data has been collected from almost all devices. Although it is stated on the paper that 60 devices were used in this process, according to our own experiments and the information provided in the dataset, these sections contain 40 devices. These 40 devices consist only of lan WIFI devices, they do not include Zigbee and z-wave devices. Zigbee and Z-Wave devices have data isolated from other devices, including power interaction and hede hodo, but these data are both very limited and do not contain normal usage data.
+In this study, the most important sections for us are IDLE and Active. In these two sections, enough data has been collected from almost all devices. Although it is stated on the paper that 60 devices were used in this process, according to our own experiments and the information provided in the dataset, these sections contain 40 devices. These 40 devices consist only of lan WIFI devices, they do not include Zigbee and z-wave devices. Zigbee and Z-Wave devices have data isolated from other devices, including power  and interaction stages, but these data are both very limited and do not contain normal usage data.
+
+
+\subsection{Individual and Aggregated  Methods}
+The use of individual packet features in device identification is quite common\cite{kostas2022IoTDevID,miettinen2017iot,CIC,aksoy2019automated,bezawada2018behavioral}. However, device identification with individual packets is very difficult due to the high noise.  This noise is caused by the fact that some "empty" packets have multiple device characteristics. An example of this is the TCP  3-way handshake. For this handshake, only empty packets with the TCP flag set up are sent, and these packets are quite simple and stable/static. It is very difficult to tell from a single packet which device it came from. Therefore mislabelling of the fingerprint from these packets is quite common.  To combat this, some researchers\cite{miettinen2017iot,bezawada2018behavioral} have constructed more descriptive fingerprints by combining features from successive packets. The problem with this approach is that since the combination process uses identifying features such as MAC/IP, it does not work in networks where there are transfer problems or non-IP devices.
+
+Since we aim to identify devices using any medium, we only used individual packets in the identification step, but we overcame the low success caused by the noise in using individual packets with the aggregation algorithm.
+
+The aggregation algorithm consists of two steps (see Fig.~\ref{fig:agg}), it uses as input the MAC address and the predicted label.  In the first step, it groups the MAC addresses according to the labels assigned to them and finds the predominant MAC address for each label. If a MAC address is selected as dominant for more than one label, this MAC address is added to the exception list. This process gives us MAC addresses that have more than one device behaviour. This feature is indicative of the transfer problem. In the second step, with the predicted labels, groups of size g are formed according to MAC addresses. The most repetitive label among these groups is applied to the whole group to obtain aggregated labels. This procedure is not applied for MAC addresses that have entered the exception list, only the individual results are used for them.
+
+\begin{figure}[ht]
+	%	\vspace*{-3mm}
+	\centerline{\includegraphics[width=1\columnwidth]{images/agregation.pdf}}
+	\caption{The steps of the aggregation algorithm. In the first step, MAC addresses are sorted by tags to find MAC addresses that show more than one device behaviour and added to the exception list. In the second step, labels outside the exception list are grouped according to MAC addresses. The most repetitive tag is assigned to the whole group and the aggregated results are created.}
+	\label{fig:agg}
+\end{figure}
 
 
 
+\subsection{Feature Extraction and Labelling}
 
+Python, Scapy and WireShark were used for feature extraction from  packet capture (pcap) files. Only individual package-based features are used for feature extraction. Many of these features are derived from packet headers, but there are also payload-based features such as payload entropy and payload bytes. Although the feature exruction system created about 100 features in total (features and their descriptions can be found in Table~\ref{tab:features1}.), very few of these features\footnote{Selected features are: pck\_size, Ether\_type, LLC\_ctrl, EAPOL\_version, EAPOL\_type, IP\_ihl, IP\_tos, IP\_len, IP\_flags, IP\_DF, IP\_ttl, IP\_options, ICMP\_code, TCP\_dataofs, TCP\_FIN, TCP\_ACK, TCP\_window, UDP\_len, DHCP\_options, BOOTP\_hlen, BOOTP\_flags, BOOTP\_sname, BOOTP\_file, BOOTP\_options, DNS\_qr, DNS\_rd, DNS\_qdcount, dport\_class, payload\_bytes, entropy,}, only the sub-features selected during the feature selection phase of the IoTDevID study, were used in the experiment.
 
-
-
-
-FE
-
-Python, Scapy and WireShark were used for feature extraction. Only individual package-based features are used for feature extraction. Many of these features are derived from packet headers, but there are also payload-based features such as payload entropy and payload bytes. Although the feature exruction system created about 100 features in total (features and their descriptions can be found in Table~\ref{tab:features1}.), very few of these features, only the sub-features selected during the feature selection phase of the IoTDevID study, were used in the experiment.
-
-
-Labelling:
 Labelling was performed using the list of device names/MAC addresses couples in the dataset. In each fingerprint extracted, the source MAC address part was replaced with the given name and the MAC addresses not given in this list (5 MAC addresses that we believe belong to the hub, switch or the computer where the data is collected) were ignored.
 
 
-
-Each of the pcap files we use for feature extraction contains network traffic recorded on a day, and is named with the date it was recorded.   For example, data recorded on 24.11.2021 is labelled A211124 if Active and I211124 if Idle. In this context, 30 IDLE and 24 active sessions were recorded. as a preliminary study,, we aimed to test the performance of all these sessions by comparing them with each other. In order to compare the sessions with each other, they should contain similar devices. Unfortunately, data was not collected from every device in every session, and in some sessions some devices did not generate any data at all. Table~\ref{tab:packets}.) shows how much data was generated by each device in each session in terms of network packets. Therefore, we only compare sessions that contain the same devices with each other. For this comparison, we create a session ID. In this ID, each device is represented by a binary digit. If the session has that device, it is indicated with 1, if not, it is indicated with 0. For example, if sessin1 contains devices A, and C but not device B, then the ID number is 101(ABC). Sessin1 can be compared to other sessions with the same ID number without any problem. In this context, we have created a 40-digit ID for each session according to totalling 40 devices.
-
+In the CIC-IoT-22 dataset, each of the pcap files we use for feature extraction contains network traffic recorded on a day, and is named with the date it was recorded.   For example, data recorded on 24.11.2021 is labelled A211124 if Active and I211124 if Idle. In this context, 30 IDLE and 24 active sessions were recorded. as a preliminary study, we aimed to test the performance of all these sessions by comparing them with each other. In order to compare the sessions with each other, they should contain similar devices. Unfortunately, data was not collected from every device in every session, and in some sessions some devices did not generate any data at all. Table~\ref{tab:packets}.) shows how much data was generated by each device in each session in terms of network packets. Therefore, we only compare sessions that contain the same devices with each other. For this comparison, we create a session ID. In this ID, each device is represented by a binary digit. If the session has that device, it is indicated with 1, if not, it is indicated with 0. For example, if sessin1 contains devices A, and C but not device B, then the ID number is 101(ABC). Sessin1 can be compared to other sessions with the same ID number without any problem. In this context, we have created a 40-digit ID for each session according to totalling 40 devices.
 
 
+\section{Performance Evaluation}
 The results we obtained by using devices with the same ID as training and test data are given in Fig.~\ref{fig:stepsofID}.  We used the F1 score to present these results for roughly two reasons. Firstly, unlike accuracy, f1 score gives reliable results on unbalanced data sets. Secondly, the F1 score does not only give overall results, but also allows us to analyse the results by class. When the results are analysed in this context, it is seen that the F1 score varies between 40\%-88\% in pairwise session comparisons. Another point we would like to draw attention to here is that this process is a multiple classification process with approximately 40\% classes. In this context, even 40 F1 is a much better result than chance/random success.
 
 
@@ -424,188 +422,8 @@ The comparison of the 4 different cases in terms of F1 score is given in the gra
 
 
 
-
-
-
-
-
-
-
-
-\clearpage
-
-An IoT device is any item that has a unique identity that can connect to other devices and perform control commands\cite{al2015internet}. It is a bridge that connects our cyber world and our physical world\cite{patel2018internet}. Using IoT, we can manage our physical world from our cyber world.
-
-This rapid progress has enabled many of us to include IoT devices in our lives. However, as a result of this rapid progress, many IoT devices were launched by many different manufacturers in a very short time. This rapid progress brings to mind the issue of whether devices are safe or how to ensure their safety.
-
-
-It is unlikely to apply the solutions applied to classical computers to IoT devices. Because most of these devices have very limited possibilities in terms of battery, processor and storage. Also, due to the heterogeneous nature of IoT, there is no standard among these devices. Many use a unique operating system and hardware. In addition, IoT devices do not have the standard interfaces as conventional computers. This situation limits user-device interaction. In today's world, where there are a wide variety of devices, users can't take the security measures that every device needs. IoT device identification is a method that aims to find the device identity, such as brand and model, by analyzing the device behaviour.
-
-Thanks to this method, devices on the network can be detected, and the necessary security measures can be taken for these devices. For example, the software of the needed ones can be updated, the behaviour of the devices and the addresses they will connect to can be restricted, or these devices can be isolated from the rest of the network. 
-
-In this study, we have divided the device identification process into four steps (see Figure~\ref{fig:stepsofID} ), and included possible mistakes to be made in each step and how to deal with these mistakes.
-
-Parallel to these steps, the structure of the paper is as follows.
-In Section~\ref{section:Methods}, device identification methods are discussed. Section~\ref{section:data} examines data types and considerations when choosing the appropriate dataset. Section~\ref{section:Features}  highlights the feature extraction step and its key points. Section~\ref{section:ML}   discusses how to decide on the appropriate machine learning method. In Section~\ref{section:Evaluation}  , evaluation methods and their pros and cons are explained.
-
-
-%The paper is organised as follows.  reviews related work. Section~\ref{section:Materials and Methods} describes the methods we use to model network packets, and the data sets used for evaluation. Section~\ref{section:Model Selection} gives an overview of our model selection approach, Section~\ref{section:Performance Evaluation} evaluates the selected model, and Section~\ref{section:Performance Comparison} compares it against other DI approaches. Limitations are discussed in Section~\ref{section:Limitations}, and conclusions are presented in Section~\ref{section:Conclusion}.
-
-
-
-
-
-\section{Familiarizing with Methods}\label{section:Methods}
-
-In this section, different device identification methods are introduced and their advantages and disadvantages are discussed.
-
-%\noindent\textbf{Decide what to classify}
-\subsection{Define the limits of the scope of the IoT concept you will use in your study.}
-The Internet of Things (IoT) can be defined as all physical objects that can share data with other devices, have embedded sensors, software and various technologies~\cite{hussain2020machine}. However, this definition is too general. For your own work, you must decide what to consider as IoT and define the boundaries of your definitions. For example, if your data will contain, will you collect classic computers or mobile devices such as tablets and phones or routers and switches under this definition or will you consider them as non-IoT devices? Will you accept Wireless Sensor Network (WSN) devices as IoT or will you create a separate subgroup for them? When classifying IoT devices, will you focus on a certain sub-area (home type, smart cities, agriculture, army, etc.\@).
-
-\subsection{Consider different methods of device identification.}
-Deciding what kind of definition you will make is very important as it will affect other steps of your work. You can  identify according to devices with 3 different approaches~\cite{yadav2020position}:
-\textbf{Unique Identification:} By accepting each of the devices as unique, a separate class is created for each device~\cite{hamad2019iot}.\\
-\textbf{Type Identification:}  Identification is performed according to the device type. If there are multiple devices of the same make and model, they are seen as a single class~\cite{miettinen2017iot}.\\
-\textbf{Class Identification:}  Different devices that are not the same but have similar features, e.g., produced by the same brand for similar tasks, are gathered under a single class~\cite{nguyen2019diot,aksoy2019automated}.
-
-\begin{figure}[ht]
-	%	\vspace*{-3mm}
-	\centerline{\includegraphics[width=1\columnwidth]{images/tablo3.pdf}}
-	\caption{Labelling the Aalto dataset according to 3 identification approaches.}
-	\label{fig:comparedata}
-\end{figure}
-
-
-Fig.~\ref{fig:comparedata} shows the labelling of the Aalto University IoT Devices Captures 
-dataset~\cite{aalto2017dataset} with three viewpoints. In the dataset containing 33 devices in total, 33 different labels are formed in the unique method, 27 different labels in the type method, and 15 different labels in the class method. Which of these three perspectives you choose is also effective in determining the network traffic characteristics you will use in your design. 
-
-\subsection{Remember that using flow-based or packet-based features affects the generalizability of your models.}
-In your design, you can use packet-based, flow-based features or both. However, if you use Unique Device Identification, the features you will only get from the packets will not be enough.  you will also need to use the flow-based features. On the other hand, using flow features will reduce the generalizability of your model, resulting in your model being specific only to the design you are using. 
-
-\subsection{Analyze the strengths and weaknesses of these methods and choose according to your needs.}
-Type Identification and Class Identification methods allow you to obtain a model with higher generalizability by using only packet-based features. Using the Type Identification method does not promise great success in distinguishing similar devices, because similar devices show similar behavior patterns. Against this disadvantage, Class Identification can be used, which gathers similar devices under the same label. This approach is based on the assumption that similar devices can be grouped under the same group because they have similar hardware and software. However, in this method, expert involvement is required to decide on the similarities and groups of the devices. Before deciding on the method you will use in your design, it will be appropriate to examine the advantages and disadvantages of these methods, and to decide according to your purpose.
-
-\section{Familiarizing with Data}\label{section:data}
-In this section, how the data you will use can be obtained, the characteristics and qualities that the data should have are examined.
-
-\subsection{Decide how you will obtain the data.}
-
-One of the important steps in device identification studies is how to obtain the data. In this context, you can use simulation or real devices. Although using simulation is fast, cheap, and easy, simulation programs currently lack the ability to simulate the various types of IoT devices because of the extremely heterogeneous nature of IoT devices. Therefore, the use of simulation is mostly seen in studies where many homogeneous devices such as WSN are used.
-
-
-\subsection{Do not forget about privacy if you are using real data.}
-In the use of real IoT devices, there are options to create an experiment set or usage of real data. When using test sets it is important that the devices can mimic as much as possible  usage patterns. Although using real data may seem advantageous in many ways, the danger of causing privacy disclosures should be considered. If you are collecting data from a real environment, you should consider the ethical aspect, obtain the necessary relevant permissions and censor any information that may disclose confidentiality such as user identity or IP addresses.
-
-\subsection{Use data from previous studies.}
-Another data acquisition method is the use of other previously collected publicly available data. The use of such data is very advantageous as it does not require extra cost and provides the results to be comparable with the literature. You can scan the literature to find the appropriate data set, especially survey studies on device identification and fingerprinting can be very useful. You can also use websites specialized for datasets, e.g.,~\href{https://datasetsearch.research.google.com/}{Dataset Search},~\href{https://www.kaggle.com/datasets}{Kaggle}, and~\href{https://archive.ics.uci.edu/ml/datasets.php}{UCI ML Repository}
-
-
-\subsection{Unsure the data is  suitable and has the  necessary qualifications.}
-
-In addition, no matter how you obtain your data, the data you will use for device identification must have the following characteristics:
-
-\begin{itemize}
-	\item It should contain benign data. In device identification, you need to extract the behavior patterns of the devices. For this, you need the normal/benign data of the devices. However, if the benign and malicious  data packets are separated, you can also use the normal parts of the data sets prepared for anomaly detection (e.g.,~\href{https://iotanalytics.unsw.edu.au/attack-data}{UNSW IoT benign and attack traces~\cite{UNSW2018attack}}). Another point that can be overlooked is that the tools used in vulnerability testing are very similar to attack tools. You can classify the data obtained by performing vulnerability tests on them as attack data, not normal data.
-
-	\item The dataset should contain enough data. It is essential for a robust study that the dataset contains as many and varied devices as possible. In this way, the operation of your model is observed more soundly and the probability of success by chance is reduced.
-	
-	\item Devices must be labelled. In the dataset you will use, you should know which device the packets belong to (which device was produced by).
-\end{itemize}
-
-
-\subsection{Ensure that the correct labels are assigned to the data.}
-
-It is quite common to use MAC and IP addresses to identify  devices, but care should be taken when using these addresses. Especially if there are Non-IP devices in the datasets, this information can be misleading. The Aalto dataset is a good example for this.  The non-IP HueSwitch device is connected to the gateway where data collection is made, via the HueBridge device. The HueSwitch transmits the network packets to the HueBridge device using ZigBee, which then HueBridge re-encapsulates these network packets and forwards them to the gateway via Ethernet. HueSwitch packets arriving at gateway carry the MAC addresses of the HueBridge device, not their own MAC addresses. Therefore, HueBridge and HueSwitch devices are represented by a single MAC address in the Aalto dataset. So, MAC and IP addresses cannot be used for labelling.  That's why the creator of the dataset labelled the devices separately.
-
-\subsection{Remember that IoT devices are highly heterogeneous and this affects data distribution.}
-IoT devices are tools that contain a wide variety of software and hardware, produced for many different purposes. This is why data from devices can be quite diverse. So, IoT devices have an unbalanced data distribution due to their highly heterogeneous nature. One device in a network can generate a large amount of data, while another device can generate a very small amount of data. Fig.~\ref{fig:aalto} shows the number of packets produced by the devices in the Aalto dataset. 
-
-\subsection{Use data augmentation  to deal with scarce data.}
-This unbalanced distribution of data can negatively affect some machine learning methods. You can deal with this problem by using data augmentation techniques. The most important point during this process is to isolate the test and training datasets from each other \textbf{before} data augmentation. In this way, the augmented (post-generated) data in the training dataset is prevented from leaking into the test data.
-
-
-\subsection{Protect test data from all influence}
-Another common mistake is to apply augmentation of test data. It is best to keep the test data in its original state. Even the simple process of resampling, such as copying packets, is harmful because it will break the distribution of test data. The distribution of  test dataset should also show the true world distribution. Thus, you can evaluate the outputs of your model more realistically and check whether there is a real contribution on data augmentation.
-
-\begin{figure}[ht]
-	%	\vspace*{-3mm}
-	\centerline{\includegraphics[width=1\columnwidth]{images/pie.pdf}}
-	\caption{The number of packets produced by the devices in the Aalto dataset.}
-	\label{fig:aalto}
-\end{figure}
-
-
-
-
-\section{Familiarizing with Features Extraction}\label{section:Features}
-In this section, the feature extraction process and important points to be considered during this process are highlighted.
-
-\subsection{Save time by choosing the right tools for preliminary analysis.}
-
-One disadvantage of working with network data is dealing with huge amounts of data. Analysing this data and extracting features can be very time consuming. Therefore, it is very important to choose the right tools for these operations. Recently, python-based libraries such as ~\href{https://dpkt.readthedocs.io/en/latest/}{dpkt} and ~\href{https://scapy.net/}{scapy} have been used extensively in the analysis of pcap data and feature extraction. Note that although they are easy to use and supported by a lot of documentation, they are extremely slow. Especially in very large data, using C-based programs such as ~\href{https://www.wireshark.org/}{Wireshark} for your pioneering analysis will save you time. Even, with ~\href{https://www.wireshark.org/docs/man-pages/tshark.html}{tshark}, which you can automate with bash code, you can do many operations much faster.
-
-\subsection{Avoid features that uniquely identify your device.}
-Get to know the features you will use during the feature extraction process. Avoid including passive features such as MAC and IP addresses in your feature set. These properties are identifying features. They uniquely identify devices but do not provide any information about device behaviour. Even if you get high results using these features in your experiments, these results cannot be generalized because they suffer from overfitting.
-\subsection{Avoid features that uniquely identify a session.}
-Some session-based features are highly identifying, despite not static. However, these features uniquely identify the session, not the device. For example, various features such as port numbers, IP ID, TCP sequence numbers are determined at the beginning of the session, and are used until the session ends. Because these properties are randomly determined, they are not predictable or generalizable. You can avoid using these features in your study. If you are going to use it, you can do it in a healthy way. For example, isolate the test and train datasets from each other to ensure that they consist of different sessions. Thus, you can prevent these features, which are identifying for each session, from leaking from the training data to the test data.
-
-\subsection{Beware of features  that are implicitly identifying.}  Although time-related features such as timestamps do not appear to be stand-alone identifying, they can be identifiers as they will uniquely show a device's operating timespan. Header checksum features are another example of this situation. Checksum features are a summary of the header in which they are used. So IP checksum contains information about IP addresses, TCP checksum contains sequence,  acknowledgment  numbers, UDP checksum  contains  port numbers.  If you find it inconvenient to use any attribute in the header, you should also avoid using the header's checksum feature.
-
-\begin{figure}[ht]
-	%	\vspace*{-3mm}
-	\centerline{\includegraphics[width=1\columnwidth]{images/bytes.pdf}}
-	\caption{The fields contained in a network packet and their byte equivalents..}
-	\label{fig:bytes}
-\end{figure}
-
-\subsection{Be careful when extracting features from raw data.}
-An alternative method in the feature extraction stage is the use of raw bytes. This method is based on obtaining feature sets through various size reduction methods by converting network data into raw bytes.  A network packet converted to raw bytes is given in Fig.~\ref{fig:bytes}. This method is advantageous in terms of both obtaining original features and reducing expert involvement in the feature extraction stage. There is no harm in using this method in the packet payload, but if you include the packet headers, you may leak many features that you would not normally want to use in the feature set. So, when applying this method, it should be noted that raw data contains identifying features. Therefore, before performing feature extraction, censoring the raw data corresponding to the identifying features ensures that more robust features are extracted, and prevents errors that would lead to overfitting.
-
-
-
-\section{Familiarizing with Machine Learning}\label{section:ML}
-In this section, it is focused on what should be considered when using machine learning methods and how the methods can be selected.
-
-\subsection{Consider other options when creating a multiclass model.}
-Device identification is a multi-class problem. However, there are some disadvantages of using multi-class models in solving this problem. The multi-class approach makes it difficult to extend the model. Because every time a new device is added to your system, you will have to retrain the model. In addition, scalability issues may arise as the number of devices increases. One2all approach can be preferred to deal with this problem. In this approach, a separate binary model is created for each device, and a multi-class result is obtained from the outputs of these models. In case a new device is included in this system, there is no need to recreate the whole models, only the model of this new device is added.
-
-\subsection{Do not underestimate the classical ML approaches}
-Do not underestimate the classical/older approaches when choosing the ML method you will use. Although deep learning methods have been popular recently, it has been observed that classical methods such as decision trees are much more successful than deep learning methods, especially in evaluating tabular data that lack temporal relationships, such as device identification~\cite{lundberg2020local2global}. 
-
-\subsection{Consider the interpretability of the models}
-Interpretability of algorithms can also be a matter of preference. Methods such as liner/logistic regression, DT, kNN have a high level of interpretability, while SVM, Ensemble methods and deep learning have a low level of interpretability (see Fig.\ref{fig:interpretability}). High interpretability can be very useful when analysing and evaluating features~\cite{arrieta2020explainable}.
-\begin{figure}[ht]
-	%	\vspace*{-3mm}
-	\centerline{\includegraphics[width=1\columnwidth]{images/ModelInterpretability.pdf}}
-	\caption{Interpretability levels of some machine learning methods.}
-	\label{fig:interpretability}
-\end{figure}
-\subsection{Note that there is no free lunch.}
-There is no perfect machine learning method that works best on every data type\cite{wolpert2002supervised}. Try to find the appropriate machine learning method for your data. With so many methods available, finding the best method can be costly. You can try different strategies for this. For example, taking a look at the methods used by similar previous studies can be very helpful, especially survey studies. Another method would be to try one of each type of machine learning (for example, tree-based, kernel-based, ANN-based etc.) and experiment more deeply with the type that performs best.
-
-
-\subsection{Consider the success - inference time trade-off.}
-Do not accept detection success as the only criterion. In network technology, transactions are done at the micro-milliseconds level. The fast sorting capability of your model, which will be used in the real world and will work in a critical area such as security, is as important as the correct classification capability. Although some algorithms such as SVM and kNN achieve high performance levels, their inference time can be very high. Therefore, it is highly recommended to include the inference time criterion in your evaluation and to avoid algorithms with very high inference times.
-
-
-
-\section{Familiarizing with Evaluation}\label{section:Evaluation}
-In this section, performance evaluation methods are examined and their pros and cons are discussed.
-
-
-\subsection{Consider data distribution when choosing the evaluation method.}
-Various evaluation criteria are used to see how successful the study is. Accuracy is the most popular of these criteria. Since it is used for evaluation in many studies, using accuracy will add comparability to your study. However, in datasets that suffer from unbalanced distribution, such as IoT datasets, using accuracy as the only method can be quite misleading. Devices with very high or very low results with too many samples may give unrealistic results by pulling the result of all data up or down. In addition, the performance of devices with too few samples may be overlooked. Another disadvantage is that accuracy is a holistic method. So, it cannot give results per device/class. This is why many studies use the recall, for the presentation of device-based results.
-
-
-\subsection{Note that some evaluation concepts have many names.}
-Nevertheless, naming the recall value per class is also very problematic in the literature. Many names are used to express this criterion, such as identification rate, recognition rate, detection rate, accuracy rate, and individual device classification performance. In order not to add to this confusion, you can use a simpler and more general nomenclature such as overall recall or per-class recall. 
-
-\subsection{Remember that some methods can be misleading.}
-However, using recall alone can be misleading as it does not account for False Positives. As a solution to this, you can use precision with recall to keep the balance between them. Another solution is to use the F1 score, which is the harmonic mean of the recall and precision. This metric alone shows the recall-precision balance, and you can observe both overall and class-based results with it.
-
 \section{Conclusion}
-In this study, the methods used in device identification with machine learning and common mistakes are discussed. In this context, by addressing the positive and negative aspects of the methods used, identification methods, appropriate data types, the feature extraction process, selection and use of machine learning techniques, and evaluation methods are examined in order to provide practical solutions to common mistakes.
+
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
@@ -615,7 +433,7 @@ In this study, the methods used in device identification with machine learning a
 
 %\clearpage
 \onecolumn
-
+\vspace{-6cm}
 %\section{Appendices}
 \appendix \label{Appendices}
 

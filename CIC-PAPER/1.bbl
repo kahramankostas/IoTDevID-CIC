@@ -102,44 +102,4 @@ S.~Marchal, ``{IoT} devices captures, aalto university,'' 2017, accessed:
   \url{https://research.aalto.fi/en/datasets/iot-devices-captures}
 \BIBentrySTDinterwordspacing
 
-\bibitem{patel2018internet}
-C.~Patel and N.~Doshi, \emph{Internet of Things Security: Challenges, Advances,
-  and Analytics}.\hskip 1em plus 0.5em minus 0.4em\relax CRC Press, 2018.
-
-\bibitem{hussain2020machine}
-F.~Hussain, R.~Hussain, S.~A. Hassan, and E.~Hossain, ``Machine learning in iot
-  security: Current solutions and future challenges,'' \emph{IEEE Com. Surveys
-  \& Tutorials}, vol.~22, no.~3, pp. 1686--1721, 2020.
-
-\bibitem{nguyen2019diot}
-T.~D. Nguyen, S.~Marchal, M.~Miettinen, H.~Fereidooni, N.~Asokan, and A.-R.
-  Sadeghi, ``D{\"i}ot: A federated self-learning anomaly detection system for
-  iot,'' in \emph{2019 IEEE 39th International Conference on Distributed
-  Computing Systems (ICDCS)}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE,
-  2019, pp. 756--767.
-
-\bibitem{UNSW2018attack}
-\BIBentryALTinterwordspacing
-A.~Hamza, H.~H. Gharakheili, T.~A. Benson, and V.~Sivaraman, ``{IoT} benign and
-  attack traces,'' 2019, accessed: 2021-09-25. [Online]. Available:
-  \url{https://iotanalytics.unsw.edu.au/attack-data}
-\BIBentrySTDinterwordspacing
-
-\bibitem{lundberg2020local2global}
-S.~M. Lundberg, G.~Erion, H.~Chen, A.~DeGrave, J.~M. Prutkin, B.~Nair, R.~Katz,
-  J.~Himmelfarb, N.~Bansal, and S.-I. Lee, ``From local explanations to global
-  understanding with explainable ai for trees,'' \emph{Nature Machine
-  Intelligence}, vol.~2, no.~1, pp. 2522--5839, 2020.
-
-\bibitem{arrieta2020explainable}
-A.~B. Arrieta, N.~D{\'\i}az-Rodr{\'\i}guez, J.~Del~Ser, A.~Bennetot, S.~Tabik,
-  A.~Barbado, S.~Garc{\'\i}a, S.~Gil-L{\'o}pez, D.~Molina, R.~Benjamins
-  \emph{et~al.}, ``Explainable artificial intelligence (xai): Concepts,
-  taxonomies, opportunities and challenges toward responsible ai,''
-  \emph{Information Fusion}, vol.~58, pp. 82--115, 2020.
-
-\bibitem{wolpert2002supervised}
-D.~H. Wolpert, ``The supervised learning no-free-lunch theorems,'' \emph{Soft
-  computing and industry}, pp. 25--42, 2002.
-
 \end{thebibliography}
