@@ -1,6 +1,11 @@
 This is BibTeX, Version 0.99d
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: 1.aux
+Case mismatch error between cite keys Kostas2022IoTDevID and kostas2022IoTDevID
+---line 43 of file 1.aux
+ : \citation{Kostas2022IoTDevID
+ :                             }
+I'm skipping whatever remains of this command
 Reallocating 'name_of_file' (item size: 1) to 9 items.
 The style file: IEEEtran.bst
 Reallocating 'name_of_file' (item size: 1) to 11 items.
@@ -10,49 +15,61 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'wiz_functions' (item size: 4) to 6000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: references.bib
+You're missing a field name---line 99 of file references.bib
+ :  
+ :  = {http://cyberforensic.net/labs/remote.html},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 1149 of file references.bib
+ : @article{kostas2022IoTDevID
+ :                            ,
+I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "al2015internet"
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty journal in kostas2023AD
 
 Done.
-You've used 13 entries,
+You've used 21 entries,
             4087 wiz_defined-function locations,
-            899 strings with 10381 characters,
-and the built_in function-call counts, 10763 in all, are:
-= -- 812
-> -- 322
-< -- 84
-+ -- 173
-- -- 61
-* -- 524
-:= -- 1548
-add.period$ -- 29
-call.type$ -- 13
-change.case$ -- 14
-chr.to.int$ -- 204
-cite$ -- 13
-duplicate$ -- 747
-empty$ -- 873
-format.name$ -- 72
-if$ -- 2512
+            947 strings with 12235 characters,
+and the built_in function-call counts, 16174 in all, are:
+= -- 1230
+> -- 453
+< -- 121
++ -- 250
+- -- 91
+* -- 766
+:= -- 2346
+add.period$ -- 46
+call.type$ -- 21
+change.case$ -- 26
+chr.to.int$ -- 297
+cite$ -- 22
+duplicate$ -- 1142
+empty$ -- 1329
+format.name$ -- 100
+if$ -- 3770
 int.to.chr$ -- 0
-int.to.str$ -- 13
-missing$ -- 145
-newline$ -- 66
-num.names$ -- 13
-pop$ -- 367
+int.to.str$ -- 21
+missing$ -- 223
+newline$ -- 92
+num.names$ -- 21
+pop$ -- 569
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 810
+skip$ -- 1218
 stack$ -- 0
-substring$ -- 491
-swap$ -- 610
-text.length$ -- 16
+substring$ -- 739
+swap$ -- 917
+text.length$ -- 22
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 13
-warning$ -- 0
-while$ -- 48
-width$ -- 15
-write$ -- 147
+type$ -- 21
+warning$ -- 1
+while$ -- 70
+width$ -- 23
+write$ -- 219
+(There were 3 error messages)

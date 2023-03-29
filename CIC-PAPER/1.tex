@@ -152,32 +152,87 @@ IoT security, IoT fingerprinting, machine learning, device identification
 
 
 
+\section{Introduction}
+
+
+Especially in the last two decades, we have heard the concept of the Internet of Things a lot. IoT can be defined as any kind of physical device with processing capability that can be connected to the internet or other devices~\cite{IoT2023What}.  IoT, which acts as a link between the digital world and the real world, are becoming increasingly present in our lives every day. Not only in our digital life on the computer/phone but also as a part of our home, work or street, they permeate every point of our physical lives. Today, the number of IoT has exceeded 10 billion, which is expected to reach 27 billion by 2025\cite{IoT2023sta}. 
+
+This rapid progress brings along many problems.  In a rapidly growing market, a variety of devices have been developed by many companies for many purposes in a short time. Due to the nature of IoT devices, these devices have very different hardware and software characteristics.  For example, a smart kettle and a smart door lock are vastly different from each other, even though they are both IoT. The heterogeneity of these devices, combined with vulnerabilities from manufacturers and the often unfamiliar interfaces of the devices, make them potentially dangerous. According to statistics, an IoT device connected to the internet is attacked within 5 minutes and becomes the target of a specialised attack within 24 hours~\cite{modi_2019}. 
+
+
+In order to cope with these attacks, it is essential to keep the devices up to date, identify the vulnerabilities they carry and find solutions for them. These devices may need to be updated, restricted or isolated from other devices depending on the vulnerabilities they carry. In any measure to be taken, the first step will be to identify the device. Necessary measures can be taken for the identified device by scanning for vulnerabilities from a source such as the CVE~\cite{cve} database.  However, the heterogeneous structure of IoT devices makes the device identification process very difficult. In this regard, many researchers are applying machine learning-based identification for more efficient solutions. 
+
+We created IoTDevID~\cite{kostas2022IoTDevID} to address the device identification problem. IoTDevID works at the individual packet level to identify IoT devices, whether IP or non-IP (such as ZWave, ZigBee, or Bluetooth). In doing so, it provides a high detection rate thanks to its incorporated aggregation algorithm, overcoming the disadvantage of low performance of using individual packets.
+
+
+IoTDevID uses only publicly available data and its scripts is also publicly available~\footnote{Materials available at: github.com/kahramankostas/IoTDevID-CIC.}. It is therefore a transparent, reliable and repeatable study.
+
+In the multi-layer feature selection process, device and session-based identifying features that cause over fitting are discarded, and the most appropriate feature set is created by using the genetic algorithm. In this context, IoTDevID provides generalisable and robust models.  In this study, we will validate our previously created IoTDevID by applying it to a new dataset, the CIC-IoT-22 dataset. In this way, we will test the robustness and generalisability of our method with another dataset.
+
+
+\section{Related Work}
+
+In this section, we will review some studies in the literature on device identification using machine learning. Device identification aims to classify devices by using feature sets (fingerprints) obtained from network data as input.  These features are usually derived from individual packet headers or payload, but some studies have also used flow features. There are three different approaches to the classification process~\cite{yadav2020position}:
+\textbf{Unique Identification:} By accepting each of the devices as unique, a separate class is created for each device~\cite{hamad2019iot}.\\
+\textbf{Type Identification:}  Identification is performed according to the device type. If there are multiple devices of the same brand and model, they are seen as a single class~\cite{miettinen2017iot}.\\
+\textbf{Class Identification:}  Different devices that are not the same but have similar features, are gathered under a single class such as camera, speaker, or smart lamp~\cite{CIC}. Fig.~\ref{fig:3aproach} shows the labelling of CIC-IoT-22 dataset with three viewpoints. In the example containing 20 devices in total, 20 different labels are formed in the unique method, 13 different labels in the type method, and 3 different labels (Smart Lamp/Bulb, Speakers, and Smart Plug respectively) in the class method. 
+
+\begin{figure}[ht]
+	%	\vspace*{-3mm}
+	\centerline{\includegraphics[width=0.61\columnwidth]{images/class.pdf}}
+	\caption{The change of device labels of the CIC dataset according to 3 identification methods. In the unique method, each device is considered unique and labelled with this name, regardless of other devices. In the Type method, devices with the same brand and model are considered as a single device and share the same label. In the Type method, three devices that were originally labelled separately as SmartThings Bulb 1-2-3 are collected under the SmartThings Bulb label. In the Class method, devices with the same function are grouped under a single tag. For example, in the class column, 1,2,3 represent the categories Smart Lamp/Bulb, speaker, and smart plug respectively..}
+	\label{fig:3aproach}
+\end{figure}
+
+In parallel to these three approaches, we can analyse the literature as follows. In order to perform a unique classification, a dataset must have more than one device of the same make and model. Hamad et al.\@~\cite{hamad2019iot} used the Aalto dataset which is suitable for this task in their work aiming at a unique classification. However, the unique classification cannot be achieved by using the individual packet features.   Therefore, this study used 67 features consisting of network statistics derived from 20-21 consecutive individual packet features. However, these are specific to the network in which they are produced.  If the same device or model is moved to another network, these network statistics will change and the model will no longer function. In this respect, flow-based features are more likely to be used in anomaly detection rather than device identification. Conversely, the use of individual packets is also inadequate for anomaly detection\cite{kostas2023AD}.
+
+
+There are more studies using the Type classification. Among these, IoTSentinel~\cite{miettinen2017iot}, a pioneering study, is particularly noteworthy. In this study using Aalto data, 23 individual features extracted from packet headers are used. These features, which are taken from 12 packets without repetition, are combined under MAC address guidance to create a larger fingerprint.  This larger fingerprint is used as machine learning input.  This study uses the RF method to classify 17 out of 27 devices with an accuracy of over 95\% and, for 10 devices, the accuracy remains around 50\%. However, the work is very strictly dependent on the MAC address. Therefore, it cannot solve the transfer problem, where a MAC address represents more than one device.
+
+
+Another work that uses the Aalto dataset is~\cite{aksoy2019automated}. In this study, using a genetic algorithm, 33 of the 212 features obtained from the packet headers were selected and 95\% accuracy was obtained using these features.  This study can be criticised for using overly specific features  (such as port numbers, TCP sequence, TCP
+acknowledgment,  and IP ID) that may leak information about inter-packet interactions, and for using a partial dataset (23 out of 27 devices were used).
+
+Another interesting work is IoTSense~\cite{bezawada2018behavioral}. This work creates a new feature set by improving IoTsentinel features. In this feature set, a 20-element feature set is created by adding 17 features from IoTsentinel and 3 yuk-based features. By combining 5 of these subsets, larger feature sets are obtained to feed the ML. Although no details are given in the study, we guess that MAC address is used to combine these 5 subsets. Although this study shows an accuracy of 99\%, the fact that the dataset used is not shared and that 4 out of 14 devices were discarded during the experiment makes the result unreliable. In addition, if the MAC address is used, it will suffer from the transfer problem.
+
+The work done by Sivanathan  et al.\@\cite{sivanathan2018classifying} is very important in terms of providing another device identification dataset to the literature. Using NB and RF methods, the UNSW dataset containing 28 devices could be classified with 99\% accuracy. However, it can be criticised that in this study identifying features were used such as flow-based features, cipher suite, DNS queries, and  port numbers. In addition, some devices in the dataset were not included in the evaluation step.
+Finally, we will evaluate the study by Dadkhah et al.\@\cite{CIC}. In this study, which introduced a new CIC-IoT-22 dataset to the literature, a class-based classification was used. The devices in the dataset are classified using 3 categories: Audio,
+Camera, and
+Home Automation. 12 machine learning methods were used in this study and 98\% accuracy was achieved. It is also interesting to note that during the testing phase, data from a different lab and different devices were used. Even though we used the data from this study, our results are not comparable, since we used type-based evaluation and they used class-based evaluation.  More information about the dataset used is given in the data section.
 
 
 
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
-%\IEEEpeerreviewmaketitle
+
+\begin{figure}[ht]
+	%	\vspace*{-3mm}
+	\centerline{\includegraphics[width=1\columnwidth]{images/TraP.pdf}}
+	\caption{Visualisation of the transfer problem in the Aalto dataset. The network data is collected at the gateway.  Between the HueBridge HueSwitch there is only Zigbee as a communication medium, between the HueSwitch  and gateway there is only Ethernet. Data from the HueBridge is decapsulated at the HueSwitch and re-encapsulated for transmission to the gateway. As a result of this process, both the HueBridge and HueSwitch share the same MAC address as the data is encapsulated on the same device (the same happens between D-LinkDoorSensor, D-LinkHomeHub and gateway). Therefore, studies that use MAC addresses to concatenate packets cannot overcome this problem.}
+	\label{fig:transfer}
+\end{figure}
+
+To briefly summarise the "IoTDevID" work, we used the Aalto dataset for method development, analysis and feature extraction, and the UNSW dataset to demonstrate that the method is robust and generalisable. For features, we used features extracted from individual packages. After an extensive evaluation of machine learning methods, we decided on DT, which is quite acceptable in terms of performance, and also quite fast, making it very suitable for real life applications. We applied a multi-stage feature selection process, in the first step we discarded descriptive features, then we eliminated unimportant features by voting based on 6 different feature scores, and finally we generated the ideal feature set using a genetic algorithm. We achieved significant improvements in our results by using the aggregation algorithm. Compared to previous studies, we find that IoTDevID is significantly more successful. In this study, we will validate the work by applying IoTDevID to the CIC dataset.
+
+
+
+
+\begin{figure}[ht]
+	%	\vspace*{-3mm}
+	\centerline{\includegraphics[width=1\columnwidth]{images/agregation.pdf}}
+	\caption{The number of packets produced by the devices in the Aalto dataset.}
+	\label{fig:pie}
+\end{figure}
 
 
 
 
 
 
-
-
-
+\section{MATERIALS AND METHODS}
 
 
 dataset
 
-One of the biggest problems in device identification studies is the lack of adequate datasets. The simulations used in many networking studies cannot be used in device identification studies, and the fact that the dataset can only be created with real device data is the most prominent of the difficulties. To create a proper device identification dataset, many types of IoT devices are needed, and the supply of these devices is a serious financial burden. In addition, normal data collection requires a long time, labour, and specialised space. In our baseline study, IoTDevID, we used two datasets, the Altoo University and UNSW datasets, which were produced for device identification studies. In this study, we used the Altoo dataset to develop our method and the second dataset to validate our results. In 2022, a new device identification dataset, CIC-IoT-22, was made public.This dataset is very interesting as it contains many types and numbers of devices, contains the state of the devices under different conditions, and contains attack data in addition to benign data.  This dataset is very useful to demonstrate the usefulness, robustness, and generalisability of our method. 
+One of the biggest problems in device identification studies is the lack of adequate datasets. The simulations used in many networking studies cannot be used in device identification studies, and the fact that the dataset can only be created with real device data is the most prominent of the difficulties. To create a proper device identification dataset, many types of IoT devices are needed, and the supply of these devices is a serious financial burden. In addition, normal data collection requires a long time, labour, and specialised space. In our baseline study, IoTDevID~\cite{Kostas2022IoTDevID}, we used two datasets, the Altoo  University~\cite{miettinen2017iot,aalto2017dataset} and UNSW datasets~\cite{sivanathan2018classifying}, which were produced for device identification studies. In this study, we used the Altoo dataset to develop our method and the second dataset to validate our results. In 2022, a new device identification dataset, CIC-IoT-22~\cite{CIC}, was made public.This dataset is very interesting as it contains many types and numbers of devices, contains the state of the devices under different conditions, and contains attack data in addition to benign data.  This dataset is very useful to demonstrate the usefulness, robustness, and generalisability of our method. 
 
 
 
@@ -202,7 +257,7 @@ In this study, the most important sections for us are IDLE and Active. In these 
 
 FE
 
-Python, Scapy and WireShark were used for feature extraction. Only individual package-based features are used for feature extraction. Many of these features are derived from packet headers, but there are also payload-based features such as payload entropy and payload bytes. Although the feature exruction system created about 100 features in total (features and their descriptions can be found in the table), very few of these features, only the sub-features selected during the feature selection phase of the IoTDevID study, were used in the experiment.
+Python, Scapy and WireShark were used for feature extraction. Only individual package-based features are used for feature extraction. Many of these features are derived from packet headers, but there are also payload-based features such as payload entropy and payload bytes. Although the feature exruction system created about 100 features in total (features and their descriptions can be found in Table~\ref{tab:features1}.), very few of these features, only the sub-features selected during the feature selection phase of the IoTDevID study, were used in the experiment.
 
 
 Labelling:
@@ -210,40 +265,174 @@ Labelling was performed using the list of device names/MAC addresses couples in 
 
 
 
-Each of the pcap files we use for feature extraction contains network traffic recorded on a day, and is named with the date it was recorded.   For example, data recorded on 24.11.2021 is labelled A211124 if Active and I211124 if Idle. In this context, 30 IDLE and 24 active sessions were recorded. as a preliminary study,, we aimed to test the performance of all these sessions by comparing them with each other. In order to compare the sessions with each other, they should contain similar devices. Unfortunately, data was not collected from every device in every session, and in some sessions some devices did not generate any data at all. Table 12 shows how much data was generated by each device in each session in terms of network packets. Therefore, we only compare sessions that contain the same devices with each other. For this comparison, we create a session ID. In this ID, each device is represented by a binary digit. If the session has that device, it is indicated with 1, if not, it is indicated with 0. For example, if sessin1 contains devices A, and C but not device B, then the ID number is 101(ABC). Sessin1 can be compared to other sessions with the same ID number without any problem. In this context, we have created a 40-digit ID for each session according to totalling 40 devices.
+Each of the pcap files we use for feature extraction contains network traffic recorded on a day, and is named with the date it was recorded.   For example, data recorded on 24.11.2021 is labelled A211124 if Active and I211124 if Idle. In this context, 30 IDLE and 24 active sessions were recorded. as a preliminary study,, we aimed to test the performance of all these sessions by comparing them with each other. In order to compare the sessions with each other, they should contain similar devices. Unfortunately, data was not collected from every device in every session, and in some sessions some devices did not generate any data at all. Table~\ref{tab:packets}.) shows how much data was generated by each device in each session in terms of network packets. Therefore, we only compare sessions that contain the same devices with each other. For this comparison, we create a session ID. In this ID, each device is represented by a binary digit. If the session has that device, it is indicated with 1, if not, it is indicated with 0. For example, if sessin1 contains devices A, and C but not device B, then the ID number is 101(ABC). Sessin1 can be compared to other sessions with the same ID number without any problem. In this context, we have created a 40-digit ID for each session according to totalling 40 devices.
 
 
 
-The results we obtained by using devices with the same ID as training and test data are given in Fig.~\ref{fig:stepsofID}.  We used the F1 score to present these results for roughly two reasons. Firstly, unlike accuracy, f1 score gives reliable results on unbalanced data sets. Secondly, the F1 score does not only give overall results, but also allows us to analyse the results by class. When the results are analysed in this context, it is seen that the f1 score varies between 40\%-88\% in pairwise session comparisons. Another point we would like to draw attention to here is that this process is a multiple classification process with approximately 40\% classes. In this context, even 40 F1 is a much better result than chance/random success.
+The results we obtained by using devices with the same ID as training and test data are given in Fig.~\ref{fig:stepsofID}.  We used the F1 score to present these results for roughly two reasons. Firstly, unlike accuracy, f1 score gives reliable results on unbalanced data sets. Secondly, the F1 score does not only give overall results, but also allows us to analyse the results by class. When the results are analysed in this context, it is seen that the F1 score varies between 40\%-88\% in pairwise session comparisons. Another point we would like to draw attention to here is that this process is a multiple classification process with approximately 40\% classes. In this context, even 40 F1 is a much better result than chance/random success.
 
 
-
-
-
-
-Sekiller incelendiginde sekil 1de spesifik tarihlere rastgeelen sonuclarin (211108, 211109, 211206, 211208, 211223, 211225, 211228) basarisiz oldugu diger taraftan sekil 2 incelendiginde ozellikle birbirini takip eden belli tarih araliklarindaki verilerin daha basarili oldugu gorulmektedir.
-Bu sonuclar overall basriyi yansitmaktadir. Tekil sonuclara odaklanmanin daha fazla velgi verecegi kanaatindeyiz. Toplamda 600den fazla oturum kiyaslamasi yaptik. Bu kiyaslamada ilk oturum egitim ikincisi test olarak kullanildi. Eger bu oturumlari aktif ve Idle olarak ayirirsak 4 farkli olasilik mumkundur AA,AI,IA ve II.  Bu baglamda oturum kiyaslamalarinin dagilimi sekilde verilmistir. Her oturum icin cihaz temelli sonuclari inceleyerek, sorunlu cihazlara odaklanmak istiyoruz. Bu baglamda oturumlarin herhangibirinde basarisiz olan, sinif bazli 0.50 f1 skordan asagi alan bir cihaz, bu davranisini 12den fazla tekrarlarsa (12 tum oturum kiyaslamasinin %2sine karsilik gelir), listemize eklenir. Grafik 12 de bu liste verilmistir. Liste cihazi, kackez hata verdigini ve bu hatalarin oturum kiyaslama turlerine gore dagilimini gostermektedir.
-Genel manada sonuclar incelendiginde,
+When the figures are analysed, it is seen that the results coinciding with specific dates in Fig.~\ref{fig:comp_1} (211108, 211109, 211206, 211208, 211223, 211225, 211228) are unsuccessful, on the other hand, when Fig.~\ref{fig:comp_2} is analysed, it is seen that the results in certain consecutive date ranges are more successful.
 
 
 
 
-
-
-\section{Introduction}
-
-
-
-
-
-
-
-
-
-
+\begin{figure}[ht]
+	%	\vspace*{-3mm}
+	
+	%\includegraphics[width=0.6\columnwidth]{images/cm1.pdf}		\includegraphics[width=0.5\columnwidth]{images/cm3.pdf}
+	\subfloat[\label{fig:comp_1}\centering ]{{\includegraphics[width=85mm]{images/cm2.pdf}}}\\
+	\subfloat[\label{fig:comp_2}\centering ]{{\includegraphics[width=85mm]{images/cm4.pdf}}}%
+	
+	
+	\caption{F1 scores of sessions pairs  assigned as training and test sets.}
+	\label{fig:stepsofID}
+\end{figure}
 
 
 
+These results reflect overall success. In total, we made more than 600 session pair comparisons. In these comparisons, the first session of the pair was used as training and the second as testing. If we divide these sessions into active and idle, four different possibilities are possible Active vs Active  (AA), Active vs Idle  (AI), Idle vs Active  (IA), and  Idle vs Idle  (II). In this context, the distribution of session comparisons is given in Fig.~\ref{fig:pie}.  
+\begin{figure}[ht]
+	%	\vspace*{-3mm}
+	\centerline{\includegraphics[width=0.61\columnwidth]{images/pie.pdf}}
+	\caption{The number of packets produced by the devices in the Aalto dataset.}
+	\label{fig:pie}
+\end{figure}
+
+
+We believe that focusing on class/device-based results will give more information. By analysing the device-based results for each session, we want to focus on the problematic devices. In this context, a device that is unsuccessful in any of the sessions, with a class-based F1 score of less than 0.50, is added to our list if it repeats this behaviour more than 12 times in all comparisons (12 corresponds to 2\% of all session comparisons). Fig.~\ref{fig:bar}.  shows this list. The list shows the number of times the device class has failed and the distribution of these failures according to the session benchmark types.
+
+
+Examining Fig.~\ref{fig:bar}, we can see that, with some minor exceptions, the overall distribution of the pie chart remains the same. This shows that there is no significant difference between idle and active. On the other hand, if we focus on some devices with low performance, we can easily understand why they are included in the list. The devices with the highest number of failures are those with more than one example in the experimental set, such as Amazon Alexa Echo Dot, Gosund Plug, Gosund Socket, Teckin Plug, Yutron Plug. Since these devices are different examples of the same device (same brand and model), they should be grouped under one label (e.g. Teckin Plug 1 and Teckin Plug 2 -> Teckin Plug). We believe that the success level of most of the other devices can be improved by increasing the sample diversity. In this context, we aimed to increase the sample diversity by taking samples from multiple sessions and, as a consequence, to increase the model success.
+In this context, we separated all sessions into two parts, training and test sessions, in such a way that the sessions are isolated from each other. By combining the sessions that we determined as training and test, we obtained a very large dataset. While creating this dataset, we isolated idle and active data in their own types. We obtained 2 pairs of datasets, idle training and testing consisting only of idle data, and active training and testing consisting only of active data. However, we took the data of D-Link Water Sensor, a device not included in the active sessions, from the idle sessions. Another change was related to LG Smart TV device. The data for this device is only present in three of the 54 sessions. However, the data for this device is so unbalanced that the device data collected from only 3 out of 54 sessions account for about 9\% of the total number of packets in all 40 devices. We removed this device from the dataset both because it did not have data from enough sessions and because its excessive number of packets distorted the distribution of the dataset.
+
+
+
+In order to obtain a dataset that reflects the diversity of the sessions but is not too large, we reduced the number of packets in these 4 datasets to 10\% of the total number of packets per dataset. Since we used random samples during this process, the packet rates obtained from the devices remained constant so that we did not damage the natural distribution of the dataset.
+
+
+The comparison of the 4 different cases in terms of F1 score is given in the graph.
+
+
+
+\begin{figure*}[ht]
+	%	\vspace*{-3mm}
+	\centerline{\includegraphics[width=1.7\columnwidth]{images/bar.pdf}}
+	\caption{The number of packets produced by the devices in the Aalto dataset.}
+	\label{fig:bar}
+\end{figure*}
+
+\begin{figure}[ht]
+	%	\vspace*{-3mm}
+	\centerline{\includegraphics[width=1\columnwidth]{images/data.pdf}}
+	\caption{The number of packets produced by the devices in the Aalto dataset.}
+	\label{fig:bar}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+\begin{table}[htbp]
+	\centering
+	\caption{Add caption}
+	\begin{tabular}{@{}clllrrr@{}}
+		\toprule
+		& Data  & Accuracy & F1Score & \multicolumn{1}{l}{Train-t} & \multicolumn{1}{l}{Test-t} & \multicolumn{1}{l}{Al-time} \\
+		\midrule
+		\multirow{4}[2]{*}{\begin{sideways}Individual\end{sideways}} & AA    & 0.890±0.001 & 0.842±0.004 & 1.748 & 0.204 & 0 \\
+		& AI    & \underline{0.918±0.001}  & \underline{0.905±0.005} & 1.812 & 0.287 & 0 \\
+		& IA    & 0.823±0.046 & 0.818±0.015 & 1.699 & 0.223 & 0 \\
+		& II    & 0.821±0.004 & 0.814±0.007 & 1.721 & 0.291 & 0 \\
+		\midrule
+		\multirow{4}[2]{*}{\begin{sideways}Aggregated\end{sideways}} & AA    & 0.943±0.001 & 0.925±0.007 & 1.962 & 0.235 & 9.119 \\
+		& AI    & \underline{0.999±0.000} & \underline{0.999±0.000} & 1.864 & 0.299 & 11.519 \\
+		& IA    & 0.850±0.058 & 0.898±0.017 & 1.584 & 0.206 & 8.46 \\
+		& II    & 0.904±0.004 & 0.912±0.006 & 1.630  & 0.313 & 11.267 \\
+		\bottomrule
+	\end{tabular}%
+	\label{tab:result}%
+\end{table}%
+
+
+
+
+
+
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+\begin{table}[htbp]
+	\centering
+	\setlength{\tabcolsep}{3pt}
+	\caption{Add caption}
+	\begin{tabular}{@{}lrrrrrrrr@{}}
+		\cmidrule{2-9}          & \multicolumn{4}{c}{Individual}
+		& \multicolumn{4}{c}{ Aggregated} \\
+		\midrule
+		& \multicolumn{1}{c}{AA} & \multicolumn{1}{c}{AI} & \multicolumn{1}{c}{IA} & \multicolumn{1}{c|}{II} & \multicolumn{1}{c}{AA} & \multicolumn{1}{c}{AI} & \multicolumn{1}{c}{IA} & \multicolumn{1}{c}{II} \\
+		\midrule
+		Amcrest WiFi-Cam. & 0.968 & 0.979 & 0.951 & 0.959 & 0.992 & 1.000 & 1.000 & 1.000 \\
+		Amazon AE Dot & 0.933 & 0.938 & 0.950 & 0.947 & 0.997 & 1.000 & 0.998 & 1.000 \\
+		Amazon AE Spot & 0.555 & 0.838 & 0.844 & 0.837 & 0.559 & 1.000 & 0.999 & 0.999 \\
+		Amazon AE Studio & 0.821 & 0.874 & 0.837 & 0.736 & 0.981 & 1.000 & 0.999 & 0.979 \\
+		Amazon Plug & 0.995 & 0.999 & 0.997 & 0.999 & 1.000 & 1.000 & 1.000 & 1.000 \\
+		Arlo Base Station & 0.984 & 0.819 & 0.624 & 0.864 & 1.000 & 0.998 & 0.454 & 1.000 \\
+		Arlo Q Camera & 0.987 & 0.970 & 0.969 & 0.952 & 1.000 & 1.000 & 1.000 & 1.000 \\
+		Atomi Coff-Maker & 0.847 & 0.892 & 0.890 & 0.501 & 0.999 & 1.000 & 1.000 & 0.638 \\
+		Borun Camera & 0.982 & 0.981 & 0.972 & 0.978 & 0.999 & 0.999 & 0.999 & 0.999 \\
+		D-Link Mini Cam. & 0.982 & 0.989 & 0.342 & 0.906 & 1.000 & 1.000 & 0.756 & 1.000 \\
+		D-Link Water Sen. & 0.930 & 0.936 & 0.936 & 0.934 & 1.000 & 0.989 & 1.000 & 0.989 \\
+		Eufy HomeBase 2 & 0.815 & 0.812 & 0.782 & 0.806 & 1.000 & 0.998 & 1.000 & 0.998 \\
+		Globe Lamp  & 0.654 & 0.823 & 0.916 & 0.431 & 0.900 & 0.997 & 1.000 & 0.246 \\
+		Google Nest Mini & 0.975 & 0.971 & 0.952 & 0.879 & 1.000 & 1.000 & 0.996 & 0.982 \\
+		Gosund Plug & 0.839 & 0.899 & 0.917 & 0.706 & 0.968 & 0.995 & 0.999 & 0.724 \\
+		Gosund Socket & 0.868 & 0.893 & 0.895 & 0.532 & 0.992 & 0.995 & 0.999 & 0.406 \\
+		HeimVision S Cam. & 0.986 & 0.998 & 0.934 & 0.984 & 1.000 & 1.000 & 1.000 & 1.000 \\
+		HeimVision Lamp & 0.715 & 0.838 & 0.857 & 0.518 & 0.965 & 0.999 & 1.000 & 0.759 \\
+		Home Eye Camera & 0.930 & 0.911 & 0.927 & 0.910 & 1.000 & 1.000 & 1.000 & 1.000 \\
+		Luohe Cam Dog & 0.762 & 0.760 & 0.759 & 0.757 & 1.000 & 0.995 & 1.000 & 0.994 \\
+		Nest Indoor Cam. & 0.998 & 0.997 & 0.999 & 0.910 & 0.999 & 0.999 & 1.000 & 0.997 \\
+		Netatmo Camera & 0.969 & 0.986 & 0.398 & 0.934 & 1.000 & 1.000 & 0.381 & 1.000 \\
+		Netatmo Weather & 0.826 & 0.827 & 0.868 & 0.845 & 1.000 & 1.000 & 1.000 & 1.000 \\
+		Philips Hue Bridge & 0.994 & 0.990 & 0.978 & 0.986 & 1.000 & 1.000 & 1.000 & 1.000 \\
+		Ring Base Station & 0.305 & 0.913 & 0.293 & 0.697 & 0.336 & 1.000 & 0.250 & 0.995 \\
+		SIMCAM 1S & 0.996 & 0.998 & 0.980 & 0.998 & 1.000 & 1.000 & 1.000 & 1.000 \\
+		Smart Board & 0.363 & 0.721 & 0.292 & 0.675 & 0.105 & 0.996 & 0.074 & 0.996 \\
+		Sonos One Speaker & 0.729 & 0.844 & 0.727 & 0.891 & 0.991 & 0.999 & 0.951 & 1.000 \\
+		Teckin Plug & 0.675 & 0.826 & 0.868 & 0.578 & 0.932 & 1.000 & 1.000 & 0.712 \\
+		Yutron Plug & 0.764 & 0.855 & 0.867 & 0.632 & 0.956 & 1.000 & 1.000 & 0.850 \\
+		iRobot Roomba & 0.955 & 0.962 & 0.843 & 0.946 & 1.000 & 1.000 & 0.993 & 1.000 \\
+		\midrule
+		Mean  & 0.842 & 0.905 & 0.818 & 0.814 & 0.925 & 0.999 & 0.898 & 0.912 \\
+		\bottomrule
+	\end{tabular}%
+	\label{tab:addlabel}%
+\end{table}%
+
+
+
+
+
+
+
+
+
+
+
+\clearpage
 
 An IoT device is any item that has a unique identity that can connect to other devices and perform control commands\cite{al2015internet}. It is a bridge that connects our cyber world and our physical world\cite{patel2018internet}. Using IoT, we can manage our physical world from our cyber world.
 
@@ -262,18 +451,6 @@ In Section~\ref{section:Methods}, device identification methods are discussed. S
 
 %The paper is organised as follows.  reviews related work. Section~\ref{section:Materials and Methods} describes the methods we use to model network packets, and the data sets used for evaluation. Section~\ref{section:Model Selection} gives an overview of our model selection approach, Section~\ref{section:Performance Evaluation} evaluates the selected model, and Section~\ref{section:Performance Comparison} compares it against other DI approaches. Limitations are discussed in Section~\ref{section:Limitations}, and conclusions are presented in Section~\ref{section:Conclusion}.
 
-
-\begin{figure}[ht]
-	%	\vspace*{-3mm}
-	
-		%\includegraphics[width=0.6\columnwidth]{images/cm1.pdf}		\includegraphics[width=0.5\columnwidth]{images/cm3.pdf}
-\subfloat[\label{fig:comp_1}\centering ]{{\includegraphics[width=85mm]{images/cm2.pdf}}}\\
-\subfloat[\label{fig:comp_2}\centering ]{{\includegraphics[width=85mm]{images/cm4.pdf}}}%
-
-	
-	\caption{F1 scores of sessions pairs  assigned as training and test sets.}
-	\label{fig:stepsofID}
-\end{figure}
 
 
 
@@ -436,10 +613,11 @@ In this study, the methods used in device identification with machine learning a
 
 
 
-\clearpage
+%\clearpage
 \onecolumn
 
-
+%\section{Appendices}
+\appendix \label{Appendices}
 
 
 
