@@ -1,32 +1,28 @@
-# IoTDevID: A Behavior-Based Device Identification Method for the IoT
+# Applying IoTDevID to a New Dataset: the CIC IoT Dataset 2022 Case Study
 
 # Overview
-In this repository you will find a Python implementation of the methods in the paper IoTDevID: A Behavior-Based Device Identification Method for the IoT.
+In this repository you will find a Python implementation of the methods in the paper Applying IoTDevID to a New Dataset: the CIC IoT Dataset 2022 Case Study.
 
-[*Kahraman  Kostas,  Mike  Just,  and  Michael  A.  Lones. IoTDevID: A Behavior-Based Device Identification Method for the IoT, IEEE Internet of Things Journal, 2022.*](https://ieeexplore.ieee.org/document/9832419)
-
-
-# What is IoTDevID?
+# Summary
 
 
-Device identification is one way to secure a network of IoT devices, whereby devices identified as suspicious can subsequently be isolated from a network. In this study, we present a machine learning-based method, *IoTDevID*, that recognises devices through characteristics of their network packets. As a result of using a rigorous feature analysis and selection process, our study offers a generalizable and realistic approach to modelling device behavior, achieving high predictive accuracy across two public datasets. The model's underlying feature set is shown to be more predictive than existing feature sets used for device identification, and is shown to generalise to data unseen during the feature selection process. Unlike most existing approaches to IoT device identification, IoTDevID is able to detect devices using non-IP and low-energy protocols.
+In an age where a new IoT device is added to our lives every day, one of the most important ways to keep these devices up to date and secure is to recognise them, diagnose their problems, and take the necessary measures by using device identification. The IoTDevID method we propose uses machine learning to identify a device using features extracted from network packets. In this method, identifying features which cause overfitting are eliminated and the feature set created by a multilayer feature selection method among the distinguishing features is tested on multiple datasets. Thus, it promises robust and generalisable identification. IoTDevID can identify both IP and non-IP devices, and its identification success is greatly enhanced by incorporating the aggregation algorithm. In this study, we will validate our work by testing our IoTDevID work on a new dataset, CIC IoT Dataset 2022.
 
 
 # Requirements and Infrastructure: 
 
-Wireshark and Python 3.6 were used to create the application files. Before running the files, it must be ensured that [Wireshark](https://www.wireshark.org/), [Python 3.6+](https://www.python.org/downloads/) and the following libraries are installed.
+Wireshark and Python 3.10 were used to create the application files. Before running the files, it must be ensured that [Wireshark](https://www.wireshark.org/), [Python 3.10+](https://www.python.org/downloads/) and the following libraries are installed.
 
 | Library | Task |
 | ------ | ------ |
 |[ Scapy ](https://scapy.net/)| Packet(Pcap) crafting |
 |[ tshark ](https://www.wireshark.org/)| Packet(Pcap) crafting |
 |[ Sklearn ](http://scikit-learn.org/stable/install.html)| Machine Learning & Data Preparation |
-|[ xverse ](https://pypi.org/project/xverse/)| Feature importance/voting |
 | [ Numpy ](http://www.numpy.org/) |Mathematical Operations|
 | [ Pandas  ](https://pandas.pydata.org/pandas-docs/stable/install.html)|  Data Analysis|
 | [ Matplotlib ](https://matplotlib.org/users/installing.html) |Graphics and Visuality|
 | [Seaborn ](https://seaborn.pydata.org/) |Graphics and Visuality|
-| [graphviz ](https://graphviz.readthedocs.io/en/stable/manual.html) |Graphics and Visuality|
+
 
 
 
@@ -34,10 +30,10 @@ The technical specifications of the computer used for experiments are given belo
 
 |  | |   |
 | ------ |--|  ------ |
-|Central Processing Unit|:|Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz 2.90 GHz|
-| Random Access Memory	|:|	8 GB (7.74 GB usable)|
-| Operating System	|:|	Windows 10 Pro 64-bit |
-| Graphics Processing Unit	|:|	AMD Readon (TM) 530|
+|Central Processing Unit|:|12th Gen Intel(R) Core(TM) i7-12700H   2.30 GHz|
+| Random Access Memory	|:|	16.0 GB (15.7 GB usable)|
+| Operating System	|:|	Windows 11 Home |
+
 
 # Implementation: 
 
@@ -50,12 +46,7 @@ The implementation phase consists of 5 steps, which are:
 * Comparison with Previous Work
 
 
-Each of these steps is implemented using one or more Python files. The same file was saved with both "py" and "ipynb" extensions. The code they contain is exactly the same. The file with the ipynb extension has the advantage of saving the state of the last run of that file and the screen output. Thus, screen output can be seen without re-running the files. Files with the ipynb extension can be run using [jupyter notebook](http://jupyter.org/install). 
-
-
-
-
-
+We used jupyter notebook (ipynb) to present the codes. The file with the ipynb extension has the advantage of saving the state of the last run of that file and the screen output. Thus, screen output can be seen without re-running the files. Files with the ipynb extension can be run using [jupyter notebook](http://jupyter.org/install). 
 
 
 
@@ -63,15 +54,15 @@ Each of these steps is implemented using one or more Python files. The same file
 ## 01 Feature Extraction (PCAP2CSV) 
 #### Section III.C in the article
 
-There are four files relevant to this section:
 
-* [01.1 Aalto feature extraction IoTDevID](https://github.com/kahramankostas/IoTDevIDv2/blob/main/0001%20Feature%20Extraction%20-%20PCAP2CSV/01.1%20Aalto%20feature%20extraction%20IoTDevID.ipynb)
+
+* [01.0 - Features_Extraction](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/01.0%20-%20Features_Extraction.ipynb): This file convert the files with pcap extension to single packet-based, CSV extension fingerprint files and creates the labeling.
 * [01.2 Aalto feature extraction IoTSense - IoT Sentinel](https://github.com/kahramankostas/IoTDevIDv2/blob/main/0001%20Feature%20Extraction%20-%20PCAP2CSV/01.2%20Aalto%20feature%20extraction%20IoTSense-%20IoT%20Sentinel.ipynb)
 * [01.3 UNSW feature extraction IoTDevID](https://github.com/kahramankostas/IoTDevIDv2/blob/main/0001%20Feature%20Extraction%20-%20PCAP2CSV/01.3%20UNSW%20feature%20extraction%20IoTDevID.ipynb)
 * [01.4 UNSW feature extraction IoTSense - IoT Sentinel](https://github.com/kahramankostas/IoTDevIDv2/blob/main/0001%20Feature%20Extraction%20-%20PCAP2CSV/01.4%20UNSW%20feature%20extraction%20IoTSense-%20IoT%20Sentinel.ipynb)
 
 
-These files convert the files with pcap extension to single packet-based, CSV extension fingerprint files (IoT Sentinel, IoTSense, IoTDevID individual packet based feature sets) and creates the labeling.
+
 
 
 The processed datasets are shared in the repository. However, raw versions of the datasets used in the study and their addresses are given below.
