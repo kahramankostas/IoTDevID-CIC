@@ -34,6 +34,19 @@ The technical specifications of the computer used for experiments are given belo
 | Random Access Memory	|:|	16.0 GB (15.7 GB usable)|
 | Operating System	|:|	Windows 11 Home |
 
+# Data: 
+Using the [CIC IoT Dataset 2022](https://www.unb.ca/cic/datasets/iotdataset-2022.html) data, feature extraction was performed, and the feature sets obtained were used in different ways at different stages of the study as indicated in the following table.
+
+| Data | Description |
+| ------ | ------ |
+|[ PCAP Files ](http://205.174.165.80/IOTDataset/CIC_IOT_Dataset2022/)| Raw Network data, Input of Feature Extraction - Used in Section III.C|
+|[ All Sessions [54 CSV]](https://drive.google.com/file/d/12AY9GOdhVMaEoYAIyTrrF6sl6R26mVib/view)| Output of Feature Extraction, Used in Section IV.A|
+|[AA, AI, IA, II](https://drive.google.com/file/d/1rCk38jOXAdWfoVWtfoKXpcBNjuSgXeBp/view?usp=sharing)| Merged Session |
+|[AA, AI, IA, II %10 sample](https://drive.google.com/file/d/1ADeh0nNFWT4BpIExnv-BoBzrtMJBHaC8/view?usp=sharing)| Size reduced merged sessions - Used in Section IV.B |
+|[ AA+non-IP Devices](hhttps://drive.google.com/file/d/1G8bDKCpfW6pun6zNBMXsNpyDwt_KPjvF/view?usp=sharing)| Size reduced AA dataset with Non-IP/Zigbee devices data |
+
+
+
 
 # Implementation: 
 
