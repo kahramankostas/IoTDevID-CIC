@@ -20,9 +20,11 @@ Wireshark and Python 3.10 were used to create the application files. Before runn
 |[ Sklearn ](http://scikit-learn.org/stable/install.html)| Machine Learning & Data Preparation |
 | [ Numpy ](http://www.numpy.org/) |Mathematical Operations|
 | [ Pandas  ](https://pandas.pydata.org/pandas-docs/stable/install.html)|  Data Analysis|
+| [ Scipy  ](https://pypi.org/project/scipy/)|  Data Analysis, Mathematical Operations|
 | [ Matplotlib ](https://matplotlib.org/users/installing.html) |Graphics and Visuality|
 | [Seaborn ](https://seaborn.pydata.org/) |Graphics and Visuality|
-
+| [tabulate ](https://pypi.org/project/tabulate/) |Pretty-print tabular data output|
+| [tqdm ](https://tqdm.github.io/) |Progress meter|
 
 
 
