@@ -73,13 +73,13 @@ We used jupyter notebook (ipynb) to present the codes. The file with the ipynb e
 ## PERFORMANCE EVALUATION
 #### Section 4.1 in the article
 
-* [02.1 - CIC results with  Session ID vs Session ID](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/02.0%20-%20CIC%20results%20with%20%20Session%20ID%20vs%20Session%20ID%20.ipynb): It uses sessions with the same ID number as training and testing data and classifies them with the DT model.
+* [02.1 - CIC results with  Session ID vs Session ID](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/02.1%20-%20CIC%20results%20with%20%20Session%20ID%20vs%20Session%20ID.ipynb): It uses sessions with the same ID number as training and testing data and classifies them with the DT model.
 
-* [02.2 - CIC results with  Session ID vs Session ID_aggregated](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/02.0%20-%20CIC%20results%20with%20%20Session%20ID%20vs%20Session%20ID%20.ipynb): It uses sessions with the same ID number as training and testing data and classifies them with the DT model. It improves the results using the aggregation algorithm.
+* [02.2 - CIC results with  Session ID vs Session ID_aggregated](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/02.2%20-%20CIC%20results%20with%20%20Session%20ID%20vs%20Session%20ID_aggregated.ipynb): It uses sessions with the same ID number as training and testing data and classifies them with the DT model. It improves the results using the aggregation algorithm.
 
-* [02.3 - Heatmap of session results](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/02.1%20-%20Heatmap%20of%20session%20results.ipynb): Displays the results of the classification operation in the previous step on a heatmap in terms of F1  score.
+* [02.3 - Heatmap of session results](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/02.3%20-%20Heatmap%20of%20session%20results.ipynb): Displays the results of the classification operation in the previous step on a heatmap in terms of F1  score.
 
-* [02.4 - Statistics of class-based results - failed device classes](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/02.2%20-%20Statistics%20of%20class-based%20results%20-%20failed%20device%20classes.ipynb):  This file gives statistics on the distribution of Idle-Active pairs and the most failing devices as the class base results.
+* [02.4 - Statistics of class-based results - failed device classes](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/02.4%20-%20Statistics%20of%20class-based%20results%20-%20failed%20device%20classes.ipynb):  This file gives statistics on the distribution of Idle-Active pairs and the most failing devices as the class base results.
 
 #### Section 4.2/4.3 in the article
 * [03.0 - Split_training_testing](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/03.0%20-%20Split_training_testing.ipynb): Combines sessions for broader representation in training and testing datasets. Each newly created dataset is then as small as 10% of its size.
