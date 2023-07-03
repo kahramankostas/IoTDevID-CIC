@@ -83,11 +83,11 @@ We used jupyter notebook (ipynb) to present the codes. The file with the ipynb e
 
 #### Section 4.2/4.3 in the article
 * [03.0 - Split_training_testing](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/03.0%20-%20Split_training_testing.ipynb): Combines sessions for broader representation in training and testing datasets. Each newly created dataset is then as small as 10% of its size.
-* [03.1 - Hyperparameter Optimization](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/03.0%20-%20Hyperparameter%20Optimization.ipynb) :In this file, hyperparameter optimization is applied via [sklearn-Randomizedsearch](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html) to DT model.
-* [03.2 - General evaluation of the all sessions](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/03.1%20-%20General%20evaluation%20of%20the%20all%20sessions.ipynb): In this file, results are obtained for the Idle and Active datasets using individual, and aggregated methods. A group size of 13 was used in the aggregation  operations.
+* [03.1 - Hyperparameter Optimization](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/03.1%20-%20Hyperparameter%20Optimization.ipynb) :In this file, hyperparameter optimization is applied via [sklearn-Randomizedsearch](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html) to DT model.
+* [03.2 - General evaluation of the all sessions](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/03.2%20-%20General%20evaluation%20of%20the%20all%20sessions.ipynb): In this file, results are obtained for the Idle and Active datasets using individual, and aggregated methods. A group size of 13 was used in the aggregation  operations.
 
 #### Section 4.4 in the article
-* [04.0 - Preprocessing other data](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/04.0%20-%20Preprocessing%20other%20data.ipynb): Non-IP devices are filtered from Power and Interactions sessions and added to Active training and testing datasets.
+* [04.0 - Preprocessing other data](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/04.0%20-%20Preprocessing%20non-IP%20Device%20data.ipynb): Non-IP devices are filtered from Power and Interactions sessions and added to Active training and testing datasets.
 * [04.1 - General evaluation with other data](https://github.com/kahramankostas/IoTDevID-CIC/blob/main/04.1%20-%20General%20evaluation%20with%20other%20data.ipynb):  In this file, results are obtained for the Idle and Active datasets using individual, and aggregated methods with Non-IP devices. The group size of 13 was used in the aggregation  operations.
 
 
