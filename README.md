@@ -96,9 +96,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 # Citations
 If you use the source code please cite the following paper:
 
+
 ```
-cite
+@misc{kostas2023CIC,
+      title={Externally validating the {IoTDevID} device identification methodology using the {CIC IoT 2022} Dataset}, 
+      author={Kahraman Kostas and Mike Just and Michael A. Lones},
+      year={2023},
+      eprint={2102.08866v1},
+      archivePrefix={arXiv},
+      primaryClass={cs.CR}
+}
 ```
+
+
 
 Contact:
 *Kahraman Kostas
