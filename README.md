@@ -37,11 +37,11 @@ Using the [CIC IoT Dataset 2022](https://www.unb.ca/cic/datasets/iotdataset-2022
 
 | Data | Description |
 | ------ | ------ |
-|[ PCAP Files ](http://205.174.165.80/IOTDataset/CIC_IOT_Dataset2022/)| Raw Network data, Input of Feature Extraction - Used in Section III.C|
-|[ All Sessions [54 CSV]](https://drive.google.com/file/d/12AY9GOdhVMaEoYAIyTrrF6sl6R26mVib/view)| Output of Feature Extraction, Used in Section IV.A|
+|[ PCAP Files ](http://205.174.165.80/IOTDataset/CIC_IOT_Dataset2022/)| Raw Network data, Input of Feature Extraction - Used in Section 3|
+|[ All Sessions [54 CSV]](https://drive.google.com/file/d/12AY9GOdhVMaEoYAIyTrrF6sl6R26mVib/view)| Output of Feature Extraction, Used in Section 4.1|
 |[AA, AI, IA, II](https://drive.google.com/file/d/1rCk38jOXAdWfoVWtfoKXpcBNjuSgXeBp/view?usp=sharing)| Merged Sessions |
-|[AA, AI, IA, II %10 sample](https://drive.google.com/file/d/1ADeh0nNFWT4BpIExnv-BoBzrtMJBHaC8/view?usp=sharing)| Size reduced merged sessions - Used in Section IV.B |
-|[ AA+non-IP Devices](https://drive.google.com/file/d/1G8bDKCpfW6pun6zNBMXsNpyDwt_KPjvF/view?usp=sharing)| Size reduced AA with Non-IP/Zigbee data - Used in Section IV.C |
+|[AA, AI, IA, II %10 sample](https://drive.google.com/file/d/1ADeh0nNFWT4BpIExnv-BoBzrtMJBHaC8/view?usp=sharing)| Size reduced merged sessions - Used in Section 4.2/4.3|
+|[ AA+non-IP Devices](https://drive.google.com/file/d/1G8bDKCpfW6pun6zNBMXsNpyDwt_KPjvF/view?usp=sharing)| Size reduced AA with Non-IP/Zigbee data - Used in Section 4.4 |
 
 
 
