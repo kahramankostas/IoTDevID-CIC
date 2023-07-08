@@ -102,7 +102,7 @@ If you use the source code please cite the following paper:
       title={Externally validating the {IoTDevID} device identification methodology using the {CIC IoT 2022} Dataset}, 
       author={Kahraman Kostas and Mike Just and Michael A. Lones},
       year={2023},
-      eprint={2102.08866v1},
+      eprint={},
       archivePrefix={arXiv},
       primaryClass={cs.CR}
 }
