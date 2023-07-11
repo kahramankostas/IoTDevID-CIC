@@ -1,4 +1,5 @@
-# Externally validating the IoTDevID device identification methodology using the CIC IoT 2022 Dataset
+# Externally validating the IoTDevID device identification methodology
+## With some lessons learned for modelling IoT devices
 # Overview
 In this repository you will find a Python implementation of the methods in the paper Applying IoTDevID to a New Dataset: the [CIC IoT Dataset 2022](https://www.unb.ca/cic/datasets/iotdataset-2022.html) Case Study.
 # Summary
@@ -99,7 +100,7 @@ If you use the source code please cite the following paper:
 
 ```
 @misc{kostas2023CIC,
-      title={Externally validating the {IoTDevID} device identification methodology using the {CIC IoT 2022} Dataset}, 
+      title={Externally validating the {IoTDevID} device identification methodology}, 
       author={Kahraman Kostas and Mike Just and Michael A. Lones},
       year={2023},
       eprint={},
