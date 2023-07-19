@@ -103,7 +103,7 @@ If you use the source code please cite the following paper:
       title={Externally validating the {IoTDevID} device identification methodology}, 
       author={Kahraman Kostas and Mike Just and Michael A. Lones},
       year={2023},
-      eprint={},
+      eprint={https://arxiv.org/abs/2307.08679},
       archivePrefix={arXiv},
       primaryClass={cs.CR}
 }
