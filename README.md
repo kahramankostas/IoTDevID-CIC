@@ -5,7 +5,8 @@ In this repository you will find a Python implementation of the methods in the p
 # Summary
 In the era of rapid IoT device proliferation, recognizing, diagnosing, and securing these devices are crucial tasks. The IoTDevID method (IEEE Internet of Things ’22) proposes a machine learning approach for device identification using network packet features. In this article we present a validation study of the IoTDevID method by testing core components, namely its feature set and its aggregation algorithm, on a new dataset. The new dataset ([CIC IoT Dataset 2022](https://www.unb.ca/cic/datasets/iotdataset-2022.html)) offers several advantages over earlier datasets, including a larger number of devices, multiple instances of the same device, both IP and non-IP device data, normal (benign) usage data, and diverse usage profiles, such as active and idle states. Using this independent dataset, we explore the validity of IoTDevID’s core components, and also examine the impacts of the new data on model performance. Our results indicate that data diversity is important to model performance. For example, models trained with active usage data outperformed those trained with idle usage data, and multiple usage data similarly improved performance. Results for IoTDevID were strong with a 92.50 F1 score for 31 IP-only device classes, similar to our results on previous datasets. In all cases, the IoTDevID aggregation algorithm improved model performance. For non-IP devices we obtained a 78.80 F1 score for 40 device classes, though with much less data, confirming that data quantity is also important to model performance. 
 
-![Datasets](./otheroutputs/IoTDevID.svg)
+![IoTDevID](./otheroutputs/IoTDevID.svg)
+<img src="./otheroutputs/IoTDevID.svg" alt="drawing" width="200"/>
 <p style="text-align: center;">Fig 1 - A brief overview of the IoTDevID methodology.</p>
 
 # Requirements and Infrastructure: 
